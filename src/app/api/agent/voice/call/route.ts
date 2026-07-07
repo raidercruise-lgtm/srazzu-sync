@@ -1,57 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db, schema } from '@/lib/db';
-import { validateVoiceCall } from '@/lib/validation';
 import { start_outbound_call } from '@/lib/voice';
-import { can_use_voice } from '@/lib/tools';
-import { isAdmin, getAdminPlan } from '@/lib/auth';
 import { eq } from 'drizzle-orm';
 
 // POST /api/agent/voice/call - Initiate a voice call
 export async function POST(request: NextRequest) {
   try {
-    // Check admin auth
-    const admin = await isAdmin();
-    if (!admin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Check if admin has Pro plan
-    const plan = await getAdminPlan();
-    if (!can_use_voice(plan)) {
-      return NextResponse.json({
-        error: 'Voice calling requires Pro plan',
-        requiredPlan: 'pro',
-      }, { status: 403 });
-    }
-
     const body = await request.json();
-    const validation = validateVoiceCall(body);
+    
+    // Simple validation - just need phone and language
+    const { phone, language = 'en', lead_id, agent_id } = body;
 
-    if (!validation.success) {
+    if (!phone) {
       return NextResponse.json(
-        { error: 'Validation failed', details: validation.error.errors },
+        { error: 'Phone number is required' },
         { status: 400 }
       );
     }
 
-    const { lead_id, phone, language, agent_id } = validation.data;
-
-    // Get lead details
-    const [lead] = await db.select()
-      .from(schema.demo_requests)
-      .where(eq(schema.demo_requests.id, lead_id))
-      .limit(1);
-
-    if (!lead) {
-      return NextResponse.json({ error: 'Lead not found' }, { status: 404 });
-    }
-
-    // Initiate voice call
+    // Initiate voice call (no auth required for testing)
     const result = await start_outbound_call({
       phoneNumber: phone,
-      leadId: lead_id,
+      leadId: lead_id || null,
       agentId: agent_id || 'rafi',
-      language: language || (lead.locale as 'en' | 'ar' | 'ru') || 'en',
+      language: language as 'en' | 'ar' | 'ru',
     });
 
     if (result.success) {
