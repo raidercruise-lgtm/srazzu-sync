@@ -47,15 +47,10 @@ export async function start_outbound_call(options: VapiCallOptions) {
         assistant: {
           firstMessage: firstMessage || getDefaultFirstMessage(language),
           model: {
-            provider: 'groq',
-            model: 'llama3-70b-8192',
+            provider: 'openai',
+            model: 'gpt-4o',
             systemMessage: systemPrompt || getDefaultSystemPrompt(language),
           },
-          voice: {
-            provider: 'vapi',
-            voiceId: voiceConfig.voiceId,
-          },
-          language: voiceConfig.language,
         },
       }),
     });
