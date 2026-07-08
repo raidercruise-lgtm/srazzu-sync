@@ -12,18 +12,11 @@ export default function HomePage() {
               <span className="text-2xl font-bold text-gray-900 ml-1">Sync</span>
             </div>
             <div className="flex items-center space-x-4">
-              <Link
-                href="/admin"
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
-              >
-                Admin
+              <Link href="/demo" className="text-sm text-gray-600 hover:text-gray-900">Demo</Link>
+              <Link href="/pricing" className="text-sm text-gray-600 hover:text-gray-900">Pricing</Link>
+              <Link href="/login" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+                Get Started Free
               </Link>
-              <a
-                href="#demo"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
-              >
-                Book Demo
-              </a>
             </div>
           </div>
         </div>
@@ -32,26 +25,21 @@ export default function HomePage() {
       {/* Hero */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            Meetings will never<br />be the same again.
+          <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">AI-Powered Sales Automation</span>
+          <h1 className="mt-6 text-5xl font-bold text-gray-900">
+            8 AI Agents That Close Deals<br />
+            <span className="text-blue-600">While You Sleep</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
-            Srazzu Sync unifies every conversation. Srazzu Flash brings AI that listens, 
-            learns, and talks live — in your language, in real time. The world's No. 1 meeting platform.
+          <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
+            Srazzu Sync automates your entire sales process with 8 intelligent agents that qualify leads, send emails, make voice calls, and close deals — in English, Arabic, and Russian.
           </p>
-          <div className="flex justify-center gap-4">
-            <a
-              href="#demo"
-              className="px-8 py-4 bg-blue-600 text-white rounded-lg text-lg font-medium hover:bg-blue-700"
-            >
-              Launch Srazzu Flash
-            </a>
-            <a
-              href="#features"
-              className="px-8 py-4 border border-gray-300 text-gray-700 rounded-lg text-lg font-medium hover:bg-gray-50"
-            >
-              Learn More
-            </a>
+          <div className="mt-10 flex justify-center gap-4">
+            <Link href="/login" className="px-8 py-4 bg-blue-600 text-white rounded-lg text-lg font-medium hover:bg-blue-700">
+              Start Free Trial
+            </Link>
+            <Link href="/demo" className="px-8 py-4 border border-gray-300 text-gray-700 rounded-lg text-lg font-medium hover:bg-gray-50">
+              Watch Demo
+            </Link>
           </div>
         </div>
       </section>
@@ -59,42 +47,69 @@ export default function HomePage() {
       {/* Stats */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-3 gap-8 text-center">
-            <div>
-              <p className="text-4xl font-bold text-blue-600">99.9%</p>
-              <p className="mt-2 text-gray-600">Live uptime</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-blue-600">40+</p>
-              <p className="mt-2 text-gray-600">Languages understood</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-blue-600">3×</p>
-              <p className="mt-2 text-gray-600">Faster follow-ups</p>
-            </div>
+          <div className="grid grid-cols-4 gap-8 text-center">
+            {[
+              { value: '8', label: 'AI Agents' },
+              { value: '3', label: 'Languages' },
+              { value: '24/7', label: 'Automation' },
+              { value: '10x', label: 'Faster Response' },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="text-4xl font-bold text-blue-600">{stat.value}</p>
+                <p className="mt-2 text-gray-600">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="py-20">
+      {/* Agents */}
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Everything your team needs to run world-class meetings
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900">Meet Your AI Sales Team</h2>
+            <p className="mt-4 text-xl text-gray-600">8 specialized agents working together to grow your business</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: '💬', title: 'Omnichannel Inbox', desc: 'WhatsApp, Instagram, Telegram, email, and web chat in one shared view.' },
-              { icon: '⚡', title: 'Live AI Copilot', desc: 'Flash suggests replies, summarizes threads, and detects intent instantly.' },
-              { icon: '🌐', title: 'Real-time Translation', desc: 'Speak and write in any language — Flash bridges every conversation.' },
-              { icon: '🤖', title: 'Smart Automations', desc: 'No-code flows that route, tag, and reply while you sleep.' },
-              { icon: '🧠', title: 'Meeting Intelligence', desc: 'Auto notes, action items, and searchable transcripts for every call.' },
-              { icon: '🚀', title: 'One-click Launch', desc: 'Go live in minutes — no engineers, no friction, no manuals.' },
-            ].map((feature) => (
-              <div key={feature.title} className="p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
-                <span className="text-4xl mb-4 block">{feature.icon}</span>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
+              { name: 'Aria', role: 'Sales Dev Rep', icon: '👩‍💼' },
+              { name: 'Samir', role: 'Support Agent', icon: '🧑‍💻' },
+              { name: 'Maya', role: 'Nurture Expert', icon: '👩‍🔬' },
+              { name: 'Rafi', role: 'Voice Caller', icon: '🧑‍✈️' },
+              { name: 'Karim', role: 'Billing Agent', icon: '👨‍💼' },
+              { name: 'Lina', role: 'Lead Qualifier', icon: '👩‍⚖️' },
+              { name: 'Nadia', role: 'Scheduler', icon: '👩‍🏫' },
+              { name: 'Omar', role: 'Follow-up', icon: '🧑‍🔧' },
+            ].map((agent) => (
+              <div key={agent.name} className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
+                <span className="text-4xl">{agent.icon}</span>
+                <h3 className="mt-4 text-lg font-semibold text-gray-900">{agent.name}</h3>
+                <p className="text-sm text-gray-500">{agent.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Languages */}
+      <section className="py-20 bg-blue-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-white mb-6">
+            Speak Your Customer's Language
+          </h2>
+          <p className="text-xl text-blue-100 mb-12">
+            All agents communicate fluently in 3 languages
+          </p>
+          <div className="flex justify-center gap-16">
+            {[
+              { flag: '🇺🇸', name: 'English' },
+              { flag: '🇸🇦', name: 'Arabic' },
+              { flag: '🇷🇺', name: 'Russian' },
+            ].map((lang) => (
+              <div key={lang.name} className="text-center">
+                <span className="text-6xl">{lang.flag}</span>
+                <p className="mt-4 text-lg font-medium text-white">{lang.name}</p>
               </div>
             ))}
           </div>
@@ -102,40 +117,38 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section id="demo" className="py-20 bg-blue-600">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            Ready to launch Srazzu Flash?
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            Ready to 10x Your Sales?
           </h2>
-          <p className="text-xl text-blue-100 mb-10">
-            The best platform in the world.
+          <p className="text-xl text-gray-600 mb-10">
+            Start free today. No credit card required.
           </p>
-          <div className="flex justify-center gap-4">
-            <a
-              href="mailto:demo@srazzu.com"
-              className="px-8 py-4 bg-white text-blue-600 rounded-lg text-lg font-medium hover:bg-gray-100"
-            >
-              Book a Demo
-            </a>
-            <a
-              href="/admin"
-              className="px-8 py-4 border border-white text-white rounded-lg text-lg font-medium hover:bg-blue-700"
-            >
-              Admin Panel
-            </a>
-          </div>
+          <Link href="/login" className="px-8 py-4 bg-blue-600 text-white rounded-lg text-lg font-medium hover:bg-blue-700">
+            Get Started Free
+          </Link>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-12 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center">
+            <div>
+              <span className="text-xl font-bold text-blue-600">Srazzu</span>
+              <span className="text-xl font-bold text-gray-900 ml-1">Sync</span>
+              <p className="mt-2 text-sm text-gray-500">AI-Powered Sales Automation</p>
+            </div>
+            <div className="flex gap-8">
+              <Link href="/demo" className="text-gray-600 hover:text-gray-900">Demo</Link>
+              <Link href="/pricing" className="text-gray-600 hover:text-gray-900">Pricing</Link>
+              <Link href="/login" className="text-gray-600 hover:text-gray-900">Login</Link>
+            </div>
+          </div>
+          <div className="mt-8 text-center text-sm text-gray-500">
             © 2024 Srazzu Sync. All rights reserved.
-          </p>
-          <p className="mt-2 text-sm text-gray-500">
-            Agent OS v1.1 — Trilingual Voice Edition (EN/AR/RU)
-          </p>
+          </div>
         </div>
       </footer>
     </div>
