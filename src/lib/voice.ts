@@ -53,11 +53,9 @@ export async function start_outbound_call(options: VapiCallOptions) {
           model: {
             provider: 'openai',
             model: 'gpt-4o',
-            systemMessage: getDefaultSystemPrompt(language),
           },
+          systemPrompt: getDefaultSystemPrompt(language),
         },
-      }),
-    });
 
     if (!response.ok) {
       const errorText = await response.text();
