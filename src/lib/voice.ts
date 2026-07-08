@@ -1,5 +1,3 @@
-// Vapi voice integration for Srazzu Sync
-
 interface VapiCallOptions {
   phoneNumber: string;
   language?: 'en' | 'ar' | 'ru';
@@ -18,7 +16,7 @@ export async function start_outbound_call(options: VapiCallOptions) {
   const vapiKey = process.env.VAPI_API_KEY;
   const phoneNumberId = process.env.VAPI_PHONE_NUMBER_ID;
 
-  if (!vapiKey || !phoneNumberId || vapiKey === 'your_vapi_key_here') {
+  if (!vapiKey || !phoneNumberId) {
     return { success: true, callId: 'mock_' + Date.now(), voiceCallId: 'mock_' + Date.now(), mock: true };
   }
 
@@ -29,17 +27,13 @@ export async function start_outbound_call(options: VapiCallOptions) {
       body: JSON.stringify({
         phoneNumberId: phoneNumberId,
         customer: { number: formattedPhone },
-        assistant: {
-          firstMessage: getDefaultFirstMessage(language),
-          model: { provider: 'openai', model: 'gpt-4o' },
-          systemPrompt: getDefaultSystemPrompt(language)
-        }
+        assistant: { firstMessage: getDefaultFirstMessage(language) }
       })
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      return { success: false, error: 'Vapi API error: ' + response.status + ' - ' + errorText };
+      return { success: false, error: errorText };
     }
 
     const call = await response.json();
@@ -56,13 +50,4 @@ function getDefaultFirstMessage(language: string): string {
     ru: 'Здравствуйте! Это звонок от Srazzu Sync. Чем я могу вам помочь сегодня?'
   };
   return messages[language] || messages.en;
-}
-
-function getDefaultSystemPrompt(language: string): string {
-  const prompts: Record<string, string> = {
-    en: 'You are a helpful AI assistant from Srazzu Sync. Be polite, professional, and concise. If the user is interested, offer to schedule a demo. If they have questions, answer them clearly. Always end by asking if there is anything else you can help with.',
-    ar: 'أنت مساعد ذكاء اصطناعي من سرازو سينك. كن مهذباً ومحترفاً ومختصراً. إذا كان المستخدم مهتماً، اعرض عليه جدولة عرض توضيحي. إذا كان لديه أسئلة، أجب عليها بوضوح. اختم دائماً بسؤال ما إذا كان هناك شيء آخر يمكنك المساعدة به.',
-    ru: 'Вы полезный ИИ-ассистент от Srazzu Sync. Будьте вежливы, профессиональны и лаконичны. Если пользователь заинтересован, предложите запланировать демо. Если у него есть вопросы, ответьте на них ясно. Всегда заканчивайте вопросом, можете ли вы еще чем-то помочь.'
-  };
-  return prompts[language] || prompts.en;
 }
